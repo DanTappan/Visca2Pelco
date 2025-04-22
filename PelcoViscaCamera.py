@@ -21,8 +21,7 @@
 #
 import struct
 import uPelco
-from debug import Debug
-
+from config import Debug, PANTILT_BAUD, PANTILT_TX, PANTILT_RX
 
 class ViscaCamera:
     # Map a Visca direction tuple into a string
@@ -43,11 +42,14 @@ class ViscaCamera:
     
     def __init__(self):
         self._focus_mode = 2
-        self._Pelco = uPelco.PelcoDevice()
+        self._Pelco = uPelco.PelcoDevice(baudrate=PANTILT_BAUD, tx=PANTILT_TX, rx=PANTILT_RX)
+        self._Pelco.go_to_zero()
         pass
 
     def switch(self, type="set", target=0, sub=0, cmd=b'\xff'):
         handler_str = type + '_' + hex(target) + '_' + hex(sub)
+        if Debug():
+            print("switch ", handler_str)
         rv = getattr(self, handler_str, None)
         if rv == None:
             rv = getattr(self, "default_" + type)
@@ -80,6 +82,21 @@ class ViscaCamera:
     def set_0x4_0x47(self, cmd):
         pass
 
+    # Preset Commands
+    def set_0x4_0x3f(self, cmd):
+        # Set or recall Preset
+        (cmd, preset_num) = struct.unpack("!BB", cmd)
+        preset_num = preset_num + 1  # Visca is 0 based
+        if cmd == 1:
+            if Debug():
+                print("Set Preset ", preset_num)
+            self._Pelco.set_preset(bytes([preset_num]))
+        elif cmd == 2:
+            if Debug():
+                print("Recall Preset ", preset_num)
+            self._Pelco.go_to_preset(bytes([preset_num]))
+
+        
     # PTZ Commands
     # PTZ move
     def set_0x6_0x1(self, cmd):

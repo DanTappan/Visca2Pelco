@@ -2,7 +2,7 @@
 from ViscaServer import ViscaServer
 from PelcoViscaCamera import ViscaCamera
 import uasyncio
-from debug import Debug
+from config import Debug
 
 #
 #

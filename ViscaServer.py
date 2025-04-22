@@ -3,7 +3,7 @@ import usocket
 import uasyncio
 import struct
 import time
-from debug import Debug
+from config import Debug
 
 #VISCA_INQUIRY = struct.unpack("!H", b'\x01\x10')[0]
 #VISCA_CMD = struct.unpack("!H", b'\x01\x00')[0]

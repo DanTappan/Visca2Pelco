@@ -3,11 +3,13 @@
 Pelco-D library for ESP32
 Based on https://github.com/ivanovys/Pelco-D-Python/blob/master/Pelco.py
 """
-from debug import Debug
+from config import Debug
 
 try:
     from machine import UART
 except ImportError:
+    if Debug():
+        print("UART import failed")
     # Unix: Make a dummy UART object
     class UART:
         def __init__(self, port, baudrate):
@@ -97,14 +99,14 @@ class PelcoDevice:
         
     #connect
     def __init__(self, port=1, baudrate=2400, tx=17, rx=16, timeout_=0):    
-        self._device=UART(port, baudrate)
+        self._device=UART(port, baudrate, tx=tx)
         self._device.init(baudrate, bits=8, parity=None, stop=1, tx=tx, rx=rx)
         self._command=Frame()
     
     def unconnect(self):
         self._device.close()
     
-    # Start camera moving.
+    # Start camera moving
     # accepts a direction code string, and speeds as a percentage of max
     def move(self, side, pan_speed=0, tilt_speed=0):
         """ 'DOWN','UP','LEFT','RIGHT','UP-RIGHT','UP-LEFT','DOWN-RIGHT','DOWN-LEFT','STOP'"""
@@ -122,6 +124,10 @@ class PelcoDevice:
         cmd=self._command._construct_cmd(command2=b'\x07', pan_speed=b'\x00',tilt_speed=b'\x0B')
         self._device.write(cmd)
               
+    def go_to_zero(self):
+        cmd=self._command._construct_cmd(command2=b'\x07', pan_speed=b'\x00',tilt_speed=b'\x22')
+        self._device.write(cmd)
+       
     def set_preset(self, num_preset):
         """ preset 1 - 255 . 11 used as Home"""
         cmd=self._command._construct_cmd(command2=b'\x03', pan_speed=b'\x00',tilt_speed=num_preset)
