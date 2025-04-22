@@ -9,7 +9,7 @@ The code supports both WiFi and the WT32-ETH01 ESP32 Ethernet board
 
 The code provides a minimal Visca implementation for the functions supported by the bracket
 - Camera movement, Pan / Tilt, commands are implemented
-- programable presets are implements
+- programable presets are implemented
 - Zoom, Focus, Iris change and On/Off commands are not implemented
 - There are stub implementations of VISCA INQUIRY commands, enough to provide compatibility with an [AVKANS IP Joystick controller](https://avkans.com/products/avkans-super-ptz-camera-joystick-controller-ndi-camera-controller-keyboard-with-4d-joystick-for-live-streaming-onvif-visca-over-ip-rs422-rs485-rs232-pelco-d-p-support). It has not been tested with other joystick controllers
 
