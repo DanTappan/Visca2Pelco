@@ -13,5 +13,6 @@ The code provides a minimal Visca implementation for the functions supported by 
 - Zoom, Focus, Iris change and On/Off commands are not implemented
 - There are stub implementations of VISCA INQUIRY commands, enough to provide compatibility with an [AVKANS IP Joystick controller](https://avkans.com/products/avkans-super-ptz-camera-joystick-controller-ndi-camera-controller-keyboard-with-4d-joystick-for-live-streaming-onvif-visca-over-ip-rs422-rs485-rs232-pelco-d-p-support). It has not been tested with other joystick controllers
 
-The code assumes an external RS485 adaptor module, [such as this one](https://www.amazon.com/dp/B0BXDJHFSP), by default connected to IO17 on the ESP32.
-<img src="ScreenShots/RS485Module.png" alt="RS485 Module" width="250">. Baud rate is set through configuration.
+The code assumes an external RS485 adaptor module, [such as this one](https://www.amazon.com/dp/B0BXDJHFSP), by default connected to IO17 on the ESP32. Baud rate is set through configuration.
+
+<img src="ScreenShots/RS485Module.png" alt="RS485 Module" width="250">. 
