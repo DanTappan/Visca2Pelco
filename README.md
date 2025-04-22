@@ -3,9 +3,9 @@ ESP32/MicroPython code for controlling a Pan-Tilt bracket
 
 This code implements a translator for using the [SONY VISCA over IP protocol](https://www.sony.net/Products/CameraSystem/CA/BRC_X1000_BRC_H800/Technical_Document/C456100121.pdf) to control a [Pelco-D](https://www.commfront.com/pages/pelco-d-protocol-tutorial) Pan-Tilt bracket, such as one [this one from AliExpress](https://www.aliexpress.us/item/3256806846839809.html)
 
-The code supports both WiFi and the WT32-ETH01 ESP32 Ethernet board
-
 <img src="ScreenShots/PTZControllerImage.png" alt="PELCO-D Pan/Tilt Bracket" width="250"/>
+
+The code supports both WiFi and the WT32-ETH01 ESP32 Ethernet board
 
 The code provides a minimal Visca implementation for the functions supported by the bracket
 - Camera movement, Pan / Tilt, commands are implemented
