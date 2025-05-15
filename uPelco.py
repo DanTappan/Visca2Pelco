@@ -95,6 +95,8 @@ class PelcoDevice:
     # return a bytes array containing the code
     def percent2speed(self, percent):
         speed = int(percent*0x3f/100)
+        if Debug():
+            print("percent2speed ", percent, "%->", speed)
         return bytes([speed])
         
     #connect

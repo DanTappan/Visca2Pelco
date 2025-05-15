@@ -26,15 +26,15 @@ from config import Debug, PANTILT_BAUD, PANTILT_TX, PANTILT_RX
 class ViscaCamera:
     # Map a Visca direction tuple into a string
     _PTZDirection = {
-        (03, 01) : 'UP',
-        (03, 02) : 'DOWN',
-        (01, 03) : 'LEFT',
-        (02, 03) : 'RIGHT',
-        (01, 01) : 'UP-LEFT',
-        (02, 01) : 'UP-RIGHT',
-        (01, 02) : 'DOWN-LEFT',
-        (02, 02) : 'DOWN-RIGHT',
-        (03, 03) : 'STOP'
+        (3, 1) : 'UP',
+        (3, 2) : 'DOWN',
+        (1, 3) : 'LEFT',
+        (2, 3) : 'RIGHT',
+        (1, 1) : 'UP-LEFT',
+        (2, 1) : 'UP-RIGHT',
+        (1, 2) : 'DOWN-LEFT',
+        (2, 2) : 'DOWN-RIGHT',
+        (3, 3) : 'STOP'
         }
     # Convert a Visca speed code (1-\x18) to a percent of max (0-100%)
     def speed2percent(self, code):

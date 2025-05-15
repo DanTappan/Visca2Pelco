@@ -13,7 +13,7 @@ def Debug():
 #
 # Hostname
 #
-Host = "pan-tilt5"
+Host = "pan-tilt2"
 
 #
 # Network Type:
@@ -21,6 +21,7 @@ Host = "pan-tilt5"
 # ETH01
 #
 NETWORK='ETH01'
+ETHVer='v1.4'	# v1.0 or or v1.4
 
 # WIFI Config, if NETWORK == WIFI
 #WIFI_SSID = "Video2G"
@@ -34,7 +35,7 @@ NETWORK='ETH01'
 # specify just to make sure.
 PANTILT_TX = 17
 PANTILT_RX = 5
-PANTILT_BAUD = 9600
+PANTILT_BAUD = 2400
 
 #
 # Connect to the network
@@ -45,16 +46,27 @@ def NetworkConnect():
     network.hostname(Host)
     if NETWORK == 'ETH01':
         import machine
-        print("Connecting to Ethernet Network")
-        lan = network.LAN(mdc=machine.Pin(23), mdio=machine.Pin(18),
-                          phy_type=network.PHY_LAN8720, phy_addr=1,
-                          power=machine.Pin(16))
+        print(Host, "- Connecting to Ethernet Network", ETHVer)
+        if ETHVer == 'v1.0':
+            lan = network.LAN(mdc=machine.Pin(23),
+                              mdio=machine.Pin(18),
+                              phy_type=network.PHY_LAN8720,
+                              phy_addr=1, power=None)
+        elif ETHVer == 'v1.4':
+            lan = network.LAN(mdc=machine.Pin(23),
+                              mdio=machine.Pin(18),
+                              phy_type=network.PHY_LAN8720,
+                              phy_addr=1,
+                              power=machine.Pin(16))
+        else:
+            print("Unknown ETH01 version")
+        
         while True:
             lan.active(True)
             ipaddr = lan.ipconfig("addr4")
             if ipaddr[0] != '0.0.0.0':
                 break
-        print("Address: ", ipaddr)
+        print("Address:", ipaddr)
 
     elif NETWORK == 'WIFI':
         sta_if = network.WLAN(network.STA_IF)
